@@ -175,6 +175,13 @@ if n:
 
 if st.button("Scrape Now"):
     # Setup service and initialize the Chrome browser
+      # Set up Chrome options for headless mode
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")  # Run headless
+    chrome_options.add_argument("--no-sandbox")  # Required for Heroku
+    chrome_options.add_argument("--disable-dev-shm-usage")  # Overcome limited resource problems
+    chrome_options.add_argument("--disable-gpu")  # Applicable to Windows only
+    chrome_options.add_argument("--window-size=1920x1080")  # Set the window size
     service = Service(ChromeDriverManager().install())
     web = webdriver.Chrome(service=service)
 
