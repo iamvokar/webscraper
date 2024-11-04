@@ -15,7 +15,12 @@ status_message = st.empty()
 
 def fetch_data(n):
     status_message.info("fetching categories ...")
-    web.find_element(By.XPATH, "//a[@href='/gp/bestsellers/?ref_=nav_cs_bestsellers']").click()
+    try:
+        web.find_element(By.XPATH, "//a[text()='Best Sellers']").click()
+    except Exception as e:
+        print("Best Sellers link not found. Navigating to the manual link.")
+        # If the link is not found, use the manual link
+        web.get("https://www.amazon.com/gp/bestsellers/?ref_=nav_cs_bestsellers")
     time.sleep(2)
     category_elements = web.find_elements(By.XPATH, "//div[@role='treeitem']//a")
 
