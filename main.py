@@ -175,10 +175,20 @@ if n:
     n = int(n)
 
 if st.button("Scrape Now"):
-    # Setup service and initialize the Chrome browser
-    # Create the Chrome driver with ChromeDriverManager
-    service = Service(ChromeDriverManager().install())
-    web = webdriver.Chrome(service=service,)
+        # Set up Chrome options for headless mode
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")  
+    chrome_options.add_argument("--no-sandbox") 
+    chrome_options.add_argument("--disable-dev-shm-usage") 
+    chrome_options.add_argument("--window-size=1920x1080") 
+
+    # Specify the path to your Chrome binary
+    chrome_options.binary_location = "chromedriver.exe"  # This is the typical path in Heroku
+
+    # Create the Chrome driver with the specified options
+    service = Service(executable_path='chromedriver.exe')
+    web = webdriver.Chrome(service=service, options=chrome_options)
+
 
     # Navigate to Amazon's homepage
     web.get(website)
