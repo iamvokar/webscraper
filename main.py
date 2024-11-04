@@ -184,10 +184,10 @@ if st.button("Scrape Now"):
     chrome_options.add_argument("--window-size=1920x1080")  # Set window size
 
     # Use the paths provided by Heroku
-    chrome_options.binary_location = "/tmp/build_2efebab6/.chrome-for-testing/chrome-linux64/chrome"
+    chrome_options.binary_location = ".chrome-for-testing/chrome-linux64/chrome"
 
     # Create the Chrome driver with the specified options and service
-    service = Service("/tmp/build_2efebab6/.chrome-for-testing/chromedriver-linux64/chromedriver")
+    service = Service(".chrome-for-testing/chromedriver-linux64/chromedriver")
     web = webdriver.Chrome(service=service, options=chrome_options)
 
 
