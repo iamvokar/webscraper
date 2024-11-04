@@ -175,18 +175,19 @@ if n:
     n = int(n)
 
 if st.button("Scrape Now"):
-        # Set up Chrome options for headless mode
+       # Set up Chrome options for headless mode
     chrome_options = Options()
-    chrome_options.add_argument("--headless")  
-    chrome_options.add_argument("--no-sandbox") 
-    chrome_options.add_argument("--disable-dev-shm-usage") 
-    chrome_options.add_argument("--window-size=1920x1080") 
+    chrome_options.add_argument("--headless")  # Run in headless mode
+    chrome_options.add_argument("--no-sandbox")  # Required for Heroku
+    chrome_options.add_argument("--disable-dev-shm-usage")  # Overcome resource limitations
+    chrome_options.add_argument("--disable-gpu")  # Disable GPU rendering
+    chrome_options.add_argument("--window-size=1920x1080")  # Set window size
 
-    # Specify the path to your Chrome binary
-    chrome_options.binary_location = "chromedriver.exe"  # This is the typical path in Heroku
+    # Use the paths provided by Heroku
+    chrome_options.binary_location = "/tmp/build_2efebab6/.chrome-for-testing/chrome-linux64/chrome"
 
-    # Create the Chrome driver with the specified options
-    service = Service(executable_path='chromedriver.exe')
+    # Create the Chrome driver with the specified options and service
+    service = Service("/tmp/build_2efebab6/.chrome-for-testing/chromedriver-linux64/chromedriver")
     web = webdriver.Chrome(service=service, options=chrome_options)
 
 
